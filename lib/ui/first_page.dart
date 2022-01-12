@@ -54,6 +54,7 @@ class _FirstPageState extends State<FirstPage> {
   List<Widget> _checkboxList() {
     return checkboxListLabels.map((label) {
       return CheckboxListTile(
+        controlAffinity: ListTileControlAffinity.leading,
         title: Text(label),
         value: checkboxListValues[label] ?? false,
         onChanged: (newValue) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:survey/ui/fifth_page.dart';
 
 class FourthPage extends StatefulWidget {
   const FourthPage({Key? key}) : super(key: key);
@@ -8,6 +9,8 @@ class FourthPage extends StatefulWidget {
 }
 
 class _FourthPageState extends State<FourthPage> {
+  DateTime? _selectedTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +29,29 @@ class _FourthPageState extends State<FourthPage> {
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Future<DateTime?> selectedDate = showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(DateTime.now().year - 3),
+                  lastDate: DateTime(DateTime.now().year + 3),
+                  builder: (context, Widget? child) {
+                    return Theme(
+                      data: ThemeData.dark(),
+                      child: child!,
+                    );
+                  },
+                );
+                selectedDate.then((dateTime) {
+                  setState(() {
+                    _selectedTime = dateTime;
+                  });
+                });
+              },
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
@@ -46,6 +67,16 @@ class _FourthPageState extends State<FourthPage> {
                       fontWeight: FontWeight.normal,
                       color: Colors.white),
                 ),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              height: 32,
+              child: Text(
+                '🏕 🗓 ${_selectedTime?.year}년 ${_selectedTime?.month}월  ${_selectedTime?.day}일',
+                style: const TextStyle(fontSize: 24),
               ),
             ),
             Spacer(),
@@ -73,7 +104,14 @@ class _FourthPageState extends State<FourthPage> {
               fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FifthPage(),
+              ),
+            );
+          },
           child: const Text(
             'Next',
             style: TextStyle(

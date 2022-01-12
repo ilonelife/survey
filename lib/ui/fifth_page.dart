@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:survey/ui/fourth_page.dart';
 
-class ThirdPage extends StatefulWidget {
-  const ThirdPage({Key? key}) : super(key: key);
+import 'final_page.dart';
+
+class FifthPage extends StatefulWidget {
+  const FifthPage({Key? key}) : super(key: key);
 
   @override
-  _ThirdPageState createState() => _ThirdPageState();
+  _FifthPageState createState() => _FifthPageState();
 }
 
-class _ThirdPageState extends State<ThirdPage> {
-  static const values = [
-    'Star Trek',
-    'The social network',
-    'Back to the future',
-    'Outbreak'
-  ];
-
-  String _selectedValue = values.first;
-
+class _FifthPageState extends State<FifthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,36 +21,46 @@ class _ThirdPageState extends State<ThirdPage> {
         child: Column(
           children: [
             const Text(
-              'What\'s your favourite movie?',
+              'How do you feel about selfies 🤳?',
               style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                   color: Colors.black),
             ),
             const SizedBox(
-              height: 16,
+              height: 32,
             ),
-            _radioboxList(),
-            const Spacer(),
+            Row(
+              children: const [
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    ' 😟 ',
+                    style: TextStyle(fontSize: 32),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.grey,
+                    color: Colors.purple,
+                    minHeight: 5,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    ' 😀 ',
+                    style: TextStyle(fontSize: 32),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
             _bottomRow(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _radioboxList() {
-    return Column(
-      children: values.map((value) {
-        // final selected = this._selectedValue == value;
-        return RadioListTile(
-            value: value,
-            groupValue: _selectedValue,
-            title: Text(value),
-            onChanged: (value) {
-              setState(() => this._selectedValue = value.toString());
-            });
-      }).toList(),
     );
   }
 
@@ -74,7 +76,7 @@ class _ThirdPageState extends State<ThirdPage> {
               color: Colors.blueAccent),
         ),
         const Text(
-          '⚪ ⚪ 🔵 ⚪ ⚪',
+          '⚪ ⚪ ⚪ ⚪ 🔵',
           style: TextStyle(
               fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black),
         ),
@@ -82,7 +84,9 @@ class _ThirdPageState extends State<ThirdPage> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => FourthPage()),
+              MaterialPageRoute(
+                builder: (context) => FinalPage(),
+              ),
             );
           },
           child: const Text(
